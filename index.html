@@ -1,0 +1,667 @@
+﻿<!doctype html>
+<html lang="sq">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#11100f">
+  <meta name="description" content="Dita e Alfabetit Shqip — një udhëtim digjitale për Kongresin e Manastirit, 22 nëntor 1908.">
+  <title>Dita e Alfabetit Shqip — Kongresi i Manastirit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600;700&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --obsidian:#11100f; --ink:#1a1815; --parchment:#f1e7d2; --pale:#faf6ec;
+      --deep-paper:#d6c39a; --crimson:#9e1b32; --red:#b52a3c; --gold:#c7a96b;
+      --bronze:#75613a; --umber:#5c5549; --smoke:#b9b2a5; --ivory:#fffdf7;
+      --line:rgba(199,169,107,.34); --ease:cubic-bezier(.16,1,.3,1);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;color:var(--ink);background:var(--obsidian);font-family:"Manrope",sans-serif;overflow-x:hidden}
+    body.locked{overflow:hidden}
+    ::selection{background:var(--crimson);color:var(--ivory)}
+    a{color:inherit;text-decoration:none}
+    button{font:inherit}
+    .grain{position:fixed;inset:-30%;z-index:9998;pointer-events:none;opacity:.055;mix-blend-mode:soft-light;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.38'/%3E%3C/svg%3E")}
+    .cursor{position:fixed;width:18px;height:18px;border:1px solid var(--gold);border-radius:50%;z-index:10000;pointer-events:none;transform:translate(-50%,-50%);transition:width .25s,height .25s,border-color .25s}
+    .cursor.dot{width:7px;height:7px;background:var(--ivory);border:0}
+
+    .preloader{position:fixed;inset:0;z-index:9999;background:var(--obsidian);display:grid;place-items:center;color:var(--ivory);transition:transform 1s var(--ease),opacity .7s}
+    .preloader.done{transform:translateY(-105%);opacity:0}
+    .seal-wrap{width:min(360px,70vw);text-align:center}
+    .seal-svg{width:190px;height:190px;margin:auto;filter:drop-shadow(0 18px 30px rgba(0,0,0,.45))}
+    .seal-svg circle,.seal-svg path{transition:.8s var(--ease)}
+    .preloader.done .seal-svg{transform:scale(.55) rotate(18deg);opacity:0}
+    .loader-date{margin-top:22px;font-size:10px;letter-spacing:.22em;color:var(--gold);text-transform:uppercase}
+    .loader-progress{width:140px;height:1px;background:rgba(199,169,107,.18);margin:18px auto 0;overflow:hidden}
+    .loader-progress i{display:block;height:100%;background:var(--gold);width:0;animation:load 2.4s var(--ease) forwards}
+    @keyframes load{to{width:100%}}
+
+    .nav{position:fixed;z-index:100;left:0;right:0;top:0;height:82px;padding:0 4.5vw;display:flex;align-items:center;justify-content:space-between;color:var(--ivory);transition:.4s}
+    .nav.scrolled{height:68px;background:rgba(17,16,15,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(199,169,107,.16)}
+    .brand{display:flex;align-items:center;gap:12px;font-family:"Cormorant Garamond",serif;font-weight:600;font-size:20px}
+    .brand-mark{width:44px;height:39px;border:1px solid var(--gold);border-radius:50%;display:grid;place-items:center;color:var(--gold)}
+    .brand-mark span{font-family:"Manrope",sans-serif;font-size:10px;letter-spacing:.08em;font-weight:700}
+    .nav-links{display:flex;align-items:center;gap:28px;font-size:11px;text-transform:uppercase;letter-spacing:.13em;font-weight:700}
+    .nav-links a{position:relative}
+    .nav-links a:after{content:"";position:absolute;left:0;right:100%;bottom:-8px;height:1px;background:var(--gold);transition:.35s var(--ease)}
+    .nav-links a:hover:after{right:0}
+    .lang{width:48px;height:48px;border:1px solid rgba(199,169,107,.5);border-radius:50%;background:transparent;color:var(--gold);cursor:pointer;font-size:11px;font-weight:700}
+
+    .hero{min-height:100svh;position:relative;display:grid;align-items:center;overflow:hidden;color:var(--ivory);background:#11100f}
+    .hero-bg{position:absolute;right:-5%;top:-5%;width:62%;height:110%;opacity:.38;
+      background:linear-gradient(90deg,var(--obsidian) 0%,rgba(17,16,15,.18) 46%,rgba(17,16,15,.05)),linear-gradient(145deg,transparent 40%,rgba(158,27,50,.24)),
+      url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=85") center/cover}
+    .hero-bg:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 62% 48%,transparent 0 18%,rgba(17,16,15,.88) 78%)}
+    .hero-shell{position:relative;width:min(1440px,91vw);margin:auto;padding-top:70px}
+    .hero-copy{width:min(720px,66vw);position:relative}
+    .eyebrow{display:flex;align-items:center;gap:14px;font-size:10px;letter-spacing:.24em;text-transform:uppercase;font-weight:700}
+    .eyebrow:before{content:"";width:52px;height:1px;background:var(--gold)}
+    .hero h1{margin:28px 0 24px;font-family:"Cormorant Garamond",serif;font-weight:600;font-size:clamp(64px,8.5vw,126px);line-height:.82;letter-spacing:-.045em}
+    .hero h1 em{display:block;color:var(--gold);font-weight:500}
+    .hero-lead{max-width:550px;font-family:"Cormorant Garamond",serif;font-size:clamp(20px,2vw,28px);line-height:1.38;color:rgba(255,253,247,.78)}
+    .hero-actions{display:flex;align-items:center;gap:28px;margin-top:38px}
+    .primary-btn{height:62px;min-width:218px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;gap:18px;text-transform:uppercase;font-size:10px;letter-spacing:.15em;font-weight:700;transition:.35s var(--ease)}
+    .primary-btn:hover{background:var(--gold);color:var(--ink);transform:translateY(-3px)}
+    .dust{position:absolute;inset:0;pointer-events:none}
+    .dust i{position:absolute;width:2px;height:2px;border-radius:50%;background:var(--gold);opacity:.38;animation:float 9s ease-in-out infinite}
+    .dust i:nth-child(1){left:58%;top:26%;animation-delay:-2s}.dust i:nth-child(2){left:72%;top:67%;animation-delay:-5s}.dust i:nth-child(3){left:48%;top:76%;animation-delay:-1s}.dust i:nth-child(4){left:84%;top:34%;animation-delay:-7s}.dust i:nth-child(5){left:91%;top:76%;animation-delay:-4s}
+    @keyframes float{50%{transform:translate(12px,-22px);opacity:.7}}
+    .scroll-cue{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+    .scroll-cue:after{content:"";display:block;width:1px;height:42px;background:linear-gradient(var(--gold),transparent);margin:12px auto}
+
+    .chapter{position:relative;color:var(--ink)}
+    .paper{background:var(--pale)}
+    .section-head{display:grid;grid-template-columns:minmax(150px,.32fr) 1fr;gap:6vw;padding:120px 6vw 70px;align-items:end}
+    .section-index{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--bronze);letter-spacing:.15em}
+    .section-head h2{margin:18px 0 0;font-family:"Cormorant Garamond",serif;font-size:clamp(58px,7vw,104px);line-height:.9;letter-spacing:-.045em}
+    .section-head h2 em{display:block;color:var(--crimson);font-weight:500}
+    .section-head p{max-width:560px;margin:30px 0 0;font-family:"Cormorant Garamond",serif;font-size:21px;line-height:1.55}
+
+    .timeline-stage{height:78vh;overflow:hidden;position:relative;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+    .timeline-track{height:100%;display:flex;width:max-content;align-items:center;padding:0 12vw;gap:0}
+    .timeline-line{position:absolute;left:0;right:0;top:50%;height:1px;background:var(--bronze);opacity:.38}
+    .event{position:relative;width:min(26vw,360px);margin-right:8vw;height:390px}
+    .event:nth-child(even){padding-top:210px}
+    .event-dot{position:absolute;left:0;top:50%;width:13px;height:13px;border-radius:50%;background:var(--pale);border:2px solid var(--crimson);transform:translateY(-50%)}
+    .event:nth-child(even) .event-dot{top:50%}
+    .event-card{position:absolute;left:28px;bottom:202px;width:260px;border-left:1px solid var(--line);padding-left:22px}
+    .event:nth-child(even) .event-card{bottom:auto;top:202px}
+    .event-date{font-family:"IBM Plex Mono",monospace;font-size:10px;color:var(--crimson);letter-spacing:.12em}
+    .event h3{font-family:"Cormorant Garamond",serif;font-size:29px;margin:12px 0 8px}
+    .event p{font-size:13px;line-height:1.65;color:var(--umber)}
+    .alphabet-collision{display:grid;grid-template-columns:repeat(3,1fr);padding:70px 6vw 120px;gap:1px;background:var(--deep-paper)}
+    .system-card{min-height:370px;padding:48px;background:var(--pale);position:relative;overflow:hidden}
+    .system-card:before{content:attr(data-letter);position:absolute;right:-10px;bottom:-55px;font-family:"Cormorant Garamond",serif;font-size:220px;color:rgba(158,27,50,.055)}
+    .system-card h3{font-family:"Cormorant Garamond",serif;font-size:40px;margin:12px 0}
+    .system-card p{max-width:300px;color:var(--umber);line-height:1.7;font-size:14px}
+
+    .congress{background:var(--obsidian);color:var(--ivory);overflow:hidden}
+    .congress .section-head{padding-bottom:50px}
+    .congress .section-head h2 em{color:var(--gold)}
+    .congress .section-index{color:var(--gold)}
+    .room{height:620px;margin:30px 6vw 100px;position:relative;border:1px solid var(--line);overflow:hidden;background:
+      radial-gradient(circle at 50% 35%,rgba(199,169,107,.15),transparent 24%),linear-gradient(145deg,#25211b,#11100f)}
+    .room-window{position:absolute;left:8%;top:10%;width:22%;height:42%;border:8px solid #0b0a09;background:linear-gradient(155deg,#42505a,#b2a489)}
+    .room-window:after{content:"";position:absolute;left:50%;top:0;bottom:0;width:5px;background:#0b0a09}
+    .room-table{position:absolute;left:12%;right:12%;bottom:13%;height:130px;border-radius:50%;background:linear-gradient(150deg,#7a4d2d,#392419);box-shadow:0 45px 40px #050505;transform:perspective(700px) rotateX(58deg)}
+    .room-name{position:absolute;bottom:28%;width:72px;height:34px;background:var(--pale);color:var(--ink);display:grid;place-items:center;font-family:"Cormorant Garamond",serif;font-size:12px;transform:rotate(-4deg)}
+    .room-name:nth-of-type(2){left:18%}.room-name:nth-of-type(3){left:32%;transform:rotate(2deg)}.room-name:nth-of-type(4){left:47%;transform:rotate(-1deg)}.room-name:nth-of-type(5){left:62%;transform:rotate(4deg)}
+    .room-stat{position:absolute;right:5%;top:8%;text-align:right}
+    .room-stat strong{display:block;font-family:"Cormorant Garamond",serif;font-size:76px;color:var(--gold);line-height:.8}
+    .room-stat span{font-size:9px;letter-spacing:.18em;text-transform:uppercase}
+    .delegates{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;border-top:1px solid var(--line);background:var(--line)}
+    .delegate{min-height:390px;background:var(--obsidian);padding:26px;position:relative;overflow:hidden;cursor:pointer}
+    .delegate-num{font-family:"IBM Plex Mono",monospace;font-size:9px;color:var(--gold)}
+    .portrait{height:210px;margin:18px 0;display:grid;place-items:center;overflow:hidden;background:radial-gradient(circle at 50% 25%,#aca792 0 10%,#34312b 11% 12%,#1b1a17 35%,#0d0c0b 70%)}
+    .portrait .silhouette{width:100%;height:100%;background-position:center 18%;background-size:cover;background-repeat:no-repeat;filter:sepia(.16) contrast(.96);box-shadow:0 -15px 30px rgba(199,169,107,.12)}
+    .delegate h3{font-family:"Cormorant Garamond",serif;font-size:27px;margin:0}
+    .delegate .role{margin-top:8px;color:var(--smoke);font-size:10px;letter-spacing:.08em;text-transform:uppercase}
+    .delegate:hover .portrait{filter:sepia(.3) saturate(.7)}
+
+    .alphabet{background:var(--parchment);padding-bottom:120px}
+    .letter-toolbar{display:flex;justify-content:space-between;align-items:center;margin:0 6vw 30px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);height:68px}
+    .letter-toolbar span{font-size:10px;letter-spacing:.15em;text-transform:uppercase}
+    .letter-search{border:0;border-bottom:1px solid var(--bronze);background:transparent;width:220px;height:38px;font-family:"Manrope",sans-serif;outline:none}
+    .letter-grid{display:grid;grid-template-columns:repeat(9,1fr);gap:1px;margin:0 6vw;border:1px solid var(--line);background:var(--line)}
+    .letter{aspect-ratio:1;border:0;background:var(--pale);color:var(--ink);position:relative;cursor:pointer;transition:.35s var(--ease)}
+    .letter b{display:block;font-family:"Cormorant Garamond",serif;font-size:clamp(28px,3vw,48px);font-weight:600}
+    .letter small{position:absolute;left:8px;bottom:8px;color:var(--bronze);font-size:8px;letter-spacing:.08em}
+    .letter:hover,.letter.active{background:var(--crimson);color:var(--ivory);transform:scale(.94);z-index:2}
+    .letter-detail{display:none;margin:40px 6vw 0;min-height:430px;border:1px solid var(--line);background:var(--ivory);grid-template-columns:.7fr 1fr 1fr}
+    .letter-detail.open{display:grid}
+    .detail-character{display:grid;place-items:center;border-right:1px solid var(--line);font-family:"Cormorant Garamond",serif;font-size:clamp(120px,15vw,220px);color:var(--crimson);background:linear-gradient(145deg,var(--pale),var(--ivory))}
+    .detail-copy{padding:48px}
+    .detail-copy h3{font-family:"Cormorant Garamond",serif;font-size:42px;margin:10px 0 20px}
+    .detail-copy p{font-size:14px;line-height:1.75;color:var(--umber)}
+    .detail-word{display:grid;place-items:center;border-left:1px solid var(--line);padding:45px;text-align:center}
+    .detail-word strong{font-family:"Cormorant Garamond",serif;font-size:clamp(38px,5vw,72px);color:var(--crimson)}
+    .detail-word em{display:block;margin-top:18px;font-family:"Caveat",cursive;font-size:24px}
+
+    .archive{background:#e7dcc2}
+    .archive-viewer{height:min(720px,75vh);margin:20px 6vw 120px;display:grid;grid-template-columns:220px 1fr 260px;border:1px solid rgba(92,85,73,.25);background:var(--pale);overflow:hidden}
+    .archive-list{border-right:1px solid rgba(92,85,73,.18);padding:25px 18px}
+    .archive-list button{display:block;width:100%;border:0;border-bottom:1px solid rgba(92,85,73,.12);background:transparent;text-align:left;padding:16px 8px;color:var(--umber);font-size:12px;cursor:pointer}
+    .archive-list button.active{color:var(--crimson);font-weight:700}
+    .artifact-stage{position:relative;display:grid;place-items:center;overflow:hidden;background:radial-gradient(circle,#f5edd9,#d8caaa)}
+    .artifact-page{width:min(70%,520px);aspect-ratio:.76;background:var(--ivory);box-shadow:0 30px 70px rgba(71,51,31,.25);padding:44px;transform:rotate(-1deg);transition:.7s var(--ease);overflow:hidden}
+    .artifact-page:hover{transform:rotate(0) scale(1.04)}
+    .artifact-page h3{font-family:"Cormorant Garamond",serif;text-align:center;border-bottom:1px solid #b4a98e;padding-bottom:12px}
+    .artifact-page p{font-family:"Cormorant Garamond",serif;font-size:16px;line-height:1.7;text-align:justify}
+    .hotspot{position:absolute;width:16px;height:16px;border-radius:50%;border:1px solid var(--crimson);background:var(--pale);display:grid;place-items:center;font-size:7px;color:var(--crimson)}
+    .hotspot.a{left:61%;top:32%}.hotspot.b{left:42%;top:64%}
+    .archive-meta{border-left:1px solid rgba(92,85,73,.18);padding:30px 24px}
+    .archive-meta h3{font-family:"Cormorant Garamond",serif;font-size:31px;margin:12px 0}
+    .archive-meta dl{font-size:11px;line-height:1.8}.archive-meta dt{color:var(--bronze);text-transform:uppercase;font-size:8px;letter-spacing:.12em;margin-top:12px}.archive-meta dd{margin:0}
+    .archive-source{display:inline-block;margin-top:22px;font-size:9px;text-transform:uppercase;letter-spacing:.11em;border-bottom:1px solid var(--bronze);padding-bottom:5px}
+    .archive-image{max-width:82%;max-height:82%;object-fit:contain;filter:sepia(.12) contrast(.96);box-shadow:0 24px 60px rgba(71,51,31,.24)}
+    .archive-caption{position:absolute;left:22px;right:22px;bottom:17px;text-align:center;font-size:9px;color:var(--umber);letter-spacing:.03em}
+
+    .voice{background:#171411;color:var(--ivory);padding-bottom:100px}
+    .voice-stage{min-height:660px;margin:20px 6vw 80px;border:1px solid var(--line);display:grid;grid-template-columns:260px 1fr;overflow:hidden}
+    .poem-list{border-right:1px solid var(--line);padding:20px}
+    .poem-list button{width:100%;border:0;border-bottom:1px solid rgba(199,169,107,.12);background:transparent;color:var(--smoke);text-align:left;padding:22px 10px;cursor:pointer}
+    .poem-list button.active{color:var(--gold)}
+    .poem-player{display:grid;place-items:center;text-align:center;padding:60px;position:relative}
+    .poem-player blockquote{margin:0;font-family:"Cormorant Garamond",serif;font-size:clamp(44px,6vw,88px);line-height:.98;max-width:900px}
+    .poem-player blockquote em{color:var(--gold);font-weight:500}
+
+    .footer{min-height:680px;background:var(--crimson);color:var(--ivory);padding:100px 6vw 35px}
+    .footer-quote{text-align:center}
+    .footer-quote .eyebrow{justify-content:center;color:var(--gold)}
+    .footer-quote h2{font-family:"Cormorant Garamond",serif;font-size:clamp(60px,8vw,118px);line-height:.9;margin:35px auto;max-width:1000px}
+    .footer-quote p{font-family:"Cormorant Garamond",serif;font-size:22px;line-height:1.6;max-width:620px;margin:auto;color:rgba(255,253,247,.76)}
+    .footer-grid{margin-top:100px;padding-top:30px;border-top:1px solid rgba(255,253,247,.24);display:grid;grid-template-columns:2fr repeat(3,1fr);gap:30px}
+    .footer-grid h4{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+    .footer-grid a{display:block;font-size:12px;margin:12px 0;color:rgba(255,253,247,.72)}
+    .footer-bottom{margin-top:80px;display:flex;justify-content:space-between;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,253,247,.58)}
+
+    .reveal{opacity:0;transform:translateY(32px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+    .reveal.visible{opacity:1;transform:none}
+    .modal{position:fixed;inset:0;z-index:500;display:none;place-items:center;background:rgba(17,16,15,.94);padding:20px}
+    .modal.open{display:grid}
+    .modal-card{width:min(760px,92vw);max-height:86vh;overflow:auto;background:var(--pale);color:var(--ink);padding:45px;position:relative}
+    .modal-close{position:absolute;right:18px;top:18px;width:42px;height:42px;border:1px solid var(--line);border-radius:50%;background:transparent;cursor:pointer}
+
+    @media(max-width:980px){
+      .nav-links{display:none}.hero-copy{width:78vw}.hero-bg{width:85%;opacity:.28}
+      .section-head{grid-template-columns:1fr}.section-head h2{font-size:64px}
+      .timeline-stage{height:auto;min-height:0;overflow:hidden;padding:54px 24px 20px}.timeline-line{left:31px;right:auto;top:54px;bottom:40px;width:1px;height:auto}.timeline-track{display:block;width:auto;height:auto;padding:0;transform:none!important}.event,.event:nth-child(even){width:auto;height:auto;min-height:0;margin:0;padding:0 0 58px 38px}.event-dot,.event:nth-child(even) .event-dot{left:0;top:3px;transform:none}.event-card,.event:nth-child(even) .event-card{position:static;width:auto;max-width:none;padding:0 0 0 20px;border-left:1px solid var(--line)}.event h3{margin-top:10px;font-size:34px}.event p{max-width:680px}
+      .alphabet-collision{grid-template-columns:1fr}.letter-grid{grid-template-columns:repeat(6,1fr)}
+      .delegates{grid-template-columns:repeat(2,1fr)}.archive-viewer{grid-template-columns:150px 1fr}.archive-meta{display:none}
+      .voice-stage{grid-template-columns:180px 1fr}.footer-grid{grid-template-columns:2fr 1fr 1fr}
+    }
+    @media(max-width:640px){
+      .cursor,.grain{display:none}.nav{height:68px;padding:0 20px}.brand{font-size:16px}.brand-mark{width:34px;height:34px}.lang{width:42px;height:42px}
+      .hero-shell{width:calc(100% - 40px)}.hero-copy{width:100%}.hero h1{font-size:58px}.hero-lead{font-size:19px}.hero-actions{align-items:flex-start}.primary-btn{min-width:190px}
+      .scroll-cue{display:none}.section-head{padding:85px 20px 45px}.section-head h2{font-size:48px}.section-head p{font-size:18px}
+      .timeline-stage{height:660px}.timeline-track{padding-left:6vw;padding-right:6vw}.event{width:270px;height:520px}.event-card{left:8px;width:calc(100vw - 86px);max-width:290px}.alphabet-collision{padding:40px 20px}.system-card{padding:32px}
+      .room{height:500px;margin:20px}.room-window{width:34%}.room-table{left:5%;right:5%}.room-stat strong{font-size:52px}.delegates{grid-template-columns:1fr}
+      .letter-toolbar{margin:0 20px}.letter-search{width:140px}.letter-grid{grid-template-columns:repeat(4,1fr);margin:0 20px}.letter-detail{margin:25px 20px;grid-template-columns:1fr}.detail-character{height:220px;border-right:0;border-bottom:1px solid var(--line)}.detail-copy{padding:28px}.detail-word{border-left:0;border-top:1px solid var(--line)}
+      .archive-viewer{height:620px;margin:20px;grid-template-columns:1fr}.archive-list{height:70px;display:flex;border-right:0;border-bottom:1px solid rgba(92,85,73,.18);overflow-x:auto}.archive-list button{min-width:150px}
+      .artifact-page{width:76%;padding:28px}.artifact-page p{font-size:12px}      .voice-stage{min-height:580px;margin:20px;grid-template-columns:1fr}.poem-list{display:none}.poem-player{padding:30px}.poem-player blockquote{font-size:46px}
+      .footer{padding:75px 20px 30px}.footer-grid{grid-template-columns:1fr 1fr}.footer-grid>div:first-child{grid-column:1/-1}.footer-bottom{flex-direction:column;gap:12px}
+    }
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}.reveal{opacity:1;transform:none}.cursor,.dust,.grain{display:none}.preloader.done{transition:.01s}}
+
+    /* The historical sequence stays readable as a vertical exhibit on every screen. */
+    .timeline-stage{height:auto;min-height:0;overflow:hidden;padding:72px clamp(24px,8vw,150px) 34px}
+    .timeline-line{left:31px;right:auto;top:72px;bottom:48px;width:1px;height:auto}
+    .timeline-track{display:block;width:auto;height:auto;padding:0;transform:none!important}
+    .event,.event:nth-child(even){width:auto;height:auto;min-height:0;margin:0;padding:0 0 70px 38px}
+    .event-dot,.event:nth-child(even) .event-dot{left:0;top:3px;transform:none}
+    .event-card,.event:nth-child(even) .event-card{position:static;width:auto;max-width:760px;padding:0 0 0 24px;border-left:1px solid var(--line)}
+    .event-card h3{margin-top:10px}
+  </style>
+</head>
+<body>
+  <div class="grain"></div>
+  <div class="cursor" aria-hidden="true"></div>
+  <div class="preloader" id="preloader" role="status" aria-label="Po ngarkohet Dita e Alfabetit Shqip">
+    <div class="seal-wrap">
+      <svg class="seal-svg" viewBox="0 0 200 200" aria-hidden="true">
+        <circle cx="100" cy="100" r="82" fill="#9e1b32" stroke="#c7a96b" stroke-width="2"/>
+        <circle cx="100" cy="100" r="70" fill="none" stroke="#c7a96b" stroke-width="1" stroke-dasharray="3 5"/>
+        <path d="M100 52l10 23 25-4-10 25 19 14-24 10 2 27-22-14-22 14 2-27-24-10 19-14-10-25 25 4z" fill="none" stroke="#c7a96b" stroke-width="2"/>
+        <text x="100" y="106" fill="#fffdf7" text-anchor="middle" font-family="Cormorant Garamond" font-size="34">22</text>
+      </svg>
+      <div class="loader-date">Manastir · 1908</div>
+      <div class="loader-progress"><i></i></div>
+    </div>
+  </div>
+
+  <nav class="nav" id="nav" aria-label="Navigimi kryesor">
+    <a class="brand" href="#hyrje" aria-label="Kthehu te hyrja">
+      <span class="brand-mark"><span>ABC</span></span>
+      <span>Dita e Alfabetit</span>
+    </a>
+    <div class="nav-links">
+      <a href="#rruga">Historia</a>
+      <a href="#kongresi">Kongresi</a>
+      <a href="#shkronjat">Shkronjat</a>
+      <a href="#arkivi">Arkivi</a>
+      <a href="#zeri">Zëri</a>
+    </div>
+  </nav>
+
+  <header class="hero" id="hyrje">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="dust" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="hero-shell">
+      <div class="hero-copy reveal">
+        <div class="eyebrow">22 Nëntor 1908</div>
+        <h1>Shkronja që <em>na dhanë zë.</em></h1>
+        <p class="hero-lead">Më 22 nëntor 1908, një dhomë në Manastir vendosi se si do të shkruhej e tashmja — dhe si do të mbahej mend e shkuara.</p>
+        <div class="hero-actions">
+          <a class="primary-btn" href="#kongresi">Hyr në Kongres</a>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-cue">Zbulo historinë</div>
+  </header>
+
+  <main>
+    <section class="chapter paper" id="rruga">
+      <div class="section-head reveal">
+        <div>
+          <div class="section-index">I · PARA Kongresit</div>
+        </div>
+        <div>
+          <h2>Rruga drejt <em>Manastirit</em></h2>
+          <p>Para Kongresit, shqipja kishte shumë mënyra për t’u shkruar. Çdo alfabet përpiqej të hapte një tjetër portë të gjuhës.</p>
+        </div>
+      </div>
+      <div class="timeline-stage" id="timeline">
+        <div class="timeline-line"></div>
+        <div class="timeline-track" id="timelineTrack">
+          <article class="event">
+            <span class="event-dot"></span>
+            <div class="event-card"><div class="event-date">1878–1885</div><h3>Një lëvizje gjuhësore</h3><p>Kultivohen shkolla, shtypi dhe shoqërimi shqiptar në një rrjet gjithnjë më të gjallë.</p></div>
+          </article>
+          <article class="event">
+            <span class="event-dot"></span>
+            <div class="event-card"><div class="event-date">1879</div><h3>Shkronjat konkurruese</h3><p>Dallimet ortografike kthehen në një pyetje kombëtare: si të shkruhet dhe të lexohet shqipja në mënyrë të kuptueshme nga të gjithë, në shkolla, libra dhe botime.</p></div>
+          </article>
+          <article class="event">
+            <span class="event-dot"></span>
+            <div class="event-card"><div class="event-date">1886–1908</div><h3>Bashkimi dhe Agimi</h3><p>Dy tradita letrare dhe botuese ndërtojnë alfabetet e tyre, secila me logjikën e saj.</p></div>
+          </article>
+          <article class="event">
+            <span class="event-dot"></span>
+            <div class="event-card"><div class="event-date">14 NËNTOR 1908</div><h3>Dyert e Kongresit</h3><p>Në Manastir hapen forumi dhe bisedimet për një normë të përbashkët.</p></div>
+          </article>
+          <article class="event">
+            <span class="event-dot"></span>
+            <div class="event-card"><div class="event-date">15—21 NËNTOR</div><h3>Komisioni punon</h3><p>Propozimet krahasohen, forma përshtaten dhe përfaqësuesit kërkojnë një marrëveshje të qëndrueshme.</p></div>
+          </article>
+          <article class="event">
+            <span class="event-dot"></span>
+            <div class="event-card"><div class="event-date">22 NËNTOR 1908</div><h3>Vendimi i gjuhës</h3><p>Miratohet një zgjidhje kompromisi: alfabeti i Bashkimit me ndryshimet e pranuara dhe elemente të alfabetit të Stambollit.</p></div>
+          </article>
+        </div>
+      </div>
+      <div class="alphabet-collision">
+        <article class="system-card reveal" data-letter="B">
+          <div class="eyebrow">Sistemi i parë</div><h3>Bashkimi</h3><p>Një traditë e lidhur me botimin letrar dhe shoqërinë kulturore; baza e alfabetit të pranuar nga Kongresi.</p>
+        </article>
+        <article class="system-card reveal" data-letter="A">
+          <div class="eyebrow">Sistemi i dytë</div><h3>Agimi</h3><p>Një propozim i përqendruar në botimin periodik, mësimin dhe lexueshmërinë bashkëkohore.</p>
+        </article>
+        <article class="system-card reveal" data-letter="İ">
+          <div class="eyebrow">Tradita shtesë</div><h3>Stamboll</h3><p>Një rrugë tipografike e përdorur në qarqet shqiptare të Perandorisë Osmane dhe diasporës.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="chapter congress" id="kongresi">
+      <div class="section-head reveal">
+        <div><div class="section-index">II · DHOMA E VENDIMIT</div></div>
+        <div>
+          <h2>Kongresi i <em>Manastirit</em></h2>
+          <p>Në nëntor të vitit 1908, një tabelë u mbush jo vetëm me emra, por me një vendim mbi atë se si do të shkruhej të shkuara dhe si do të mbaheshim mend të tashmja.</p>
+        </div>
+      </div>
+      <div class="room reveal" aria-label="Interpretim artistik i dhomës së Kongresit">
+        <div class="room-window"></div>
+        <div class="room-table"></div>
+        <div class="room-name">BASHKIMI</div><div class="room-name">AGIMI</div><div class="room-name">JETA</div><div class="room-name">GJUHA</div>
+        <div class="room-stat"><strong>11</strong><span>profila të mbledhura</span></div>
+      </div>
+      <div class="delegates" id="delegates">
+        <article class="delegate reveal" data-name="Gjergj Fishta" data-role="Përfaqësues i traditës letrare">
+          <span class="delegate-num">01 / 11</span><div class="portrait"><div class="silhouette" style="background-image:url('https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b8/Gjergj_Fishta_%28portrait%29.jpg/500px-Gjergj_Fishta_%28portrait%29.jpg')" role="img" aria-label="Portret i Gjergj Fishtës"></div></div><h3>Gjergj Fishta</h3><div class="role">Traditë letrare</div>
+        </article>
+        <article class="delegate reveal" data-name="Luigj Gurakuqi" data-role="Përfaqësues politik dhe kulturor">
+          <span class="delegate-num">02 / 11</span><div class="portrait"><div class="silhouette" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/d/da/Luigj_Gurakuqi.jpg')" role="img" aria-label="Portret i Luigj Gurakuqit"></div></div><h3>Luigj Gurakuqi</h3><div class="role">Kulturë dhe politikë</div>
+        </article>
+        <article class="delegate reveal" data-name="Mid'hat Frashëri" data-role="Nëntë vjetor i Kongresit">
+          <span class="delegate-num">03 / 11</span><div class="portrait"><div class="silhouette" style="background-image:url('https://thumb.wikimedia.org/wikipedia/commons/thumb/5/53/Mid%27hat_Frash%C3%ABri.jpg/500px-Mid%27hat_Frash%C3%ABri.jpg')" role="img" aria-label="Portret i Mid'hat Frashërit"></div></div><h3>Mid'hat Frashëri</h3><div class="role">Organizator dhe publicist</div>
+        </article>
+        <article class="delegate reveal" data-name="Ndre Mjeda" data-role="Autoritet gjuhësor dhe letrar">
+          <span class="delegate-num">04 / 11</span><div class="portrait"><div class="silhouette" style="background-image:url('https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f3/Ndre_Mjeda_%28portret%29.jpg/500px-Ndre_Mjeda_%28portret%29.jpg')" role="img" aria-label="Portret i Ndre Mjedës"></div></div><h3>Ndre Mjeda</h3><div class="role">Gjuhëtar dhe poet</div>
+        </article>
+        <article class="delegate reveal" data-name="Gjergj Qiriazi" data-role="Zë i arsimit shqiptar">
+          <span class="delegate-num">05 / 11</span><div class="portrait"><div class="silhouette" style="background-image:url('https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a6/Gjergj_Qiriazi_%28Kyrias%29_1868_%E2%80%94_1912.jpg/500px-Gjergj_Qiriazi_%28Kyrias%29_1868_%E2%80%94_1912.jpg')" role="img" aria-label="Portret i Gjergj Qiriazit"></div></div><h3>Gjergj Qiriazi</h3><div class="role">Arsim dhe botim</div>
+        </article>
+        <article class="delegate reveal" data-name="Parashqevi Qiriazi" data-role="Mësuese dhe përhapëse e shkrim-leximit">
+          <span class="delegate-num">06 / 11</span><div class="portrait"><div class="silhouette" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/5/5b/ParashqeviQiriazi.jpg')" role="img" aria-label="Portret i Parashqevi Qiriazit"></div></div><h3>Parashqevi Qiriazi</h3><div class="role">Arsim dhe alfabetizëm</div>
+        </article>
+        <article class="delegate reveal" data-name="Bajo Topulli" data-role="Organizator i shoqërive shqiptare">
+          <span class="delegate-num">07 / 11</span><div class="portrait"><div class="silhouette" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/4/41/Bajo_Topulli.jpg')" role="img" aria-label="Portret i Bajo Topullit"></div></div><h3>Bajo Topulli</h3><div class="role">Lëvizje kombëtare</div>
+        </article>
+        <article class="delegate reveal" data-name="Sotir Peci" data-role="Mësues dhe delegat">
+          <span class="delegate-num">08 / 11</span><div class="portrait"><div class="silhouette" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/e/e4/Sotir_Peci_%28portrait%29.jpg')" role="img" aria-label="Portret i Sotir Pecit"></div></div><h3>Sotir Peci</h3><div class="role">Arsim</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="chapter alphabet" id="shkronjat">
+      <div class="section-head reveal">
+        <div><div class="section-index">III · LABORATORI TIPOGRAFIK</div></div>
+        <div>
+          <h2>36 <em>shkronjat e arta</em></h2>
+          <p>Çdo shkronjë është një vend që theksohet në gojë dhe një gjurmë që mbetet në letër.</p>
+        </div>
+      </div>
+      <div class="letter-toolbar">
+        <span><b id="letterCount">36</b> forma</span>
+        <input class="letter-search" id="letterSearch" type="search" placeholder="Kërko një shkronjë…" aria-label="Kërko shkronjën">
+      </div>
+      <div class="letter-grid" id="letterGrid"></div>
+      <article class="letter-detail" id="letterDetail" aria-live="polite">
+        <div class="detail-character" id="detailCharacter">A</div>
+        <div class="detail-copy"><div class="eyebrow">Shkronja e zgjedhur</div><h3 id="detailName">A</h3><p id="detailDesc">A është zanore e hapur dhe shkronja e parë e alfabetit shqip; në fjalë si “atdhe” hap rrugën e tingullit.</p></div>
+        <div class="detail-word"><div><strong id="detailWord">gëzim</strong><em id="detailQuote">“Fjala merr formë kur ndihet.”</em></div></div>
+      </article>
+    </section>
+
+    <section class="chapter archive" id="arkivi">
+      <div class="section-head reveal">
+        <div><div class="section-index">IV · MATERIALET ORIGINALE</div></div>
+        <div>
+          <h2>Arkivi <em>i gjallë</em></h2>
+          <p>Një dokument nuk është e kaluara e mbyllur. Është një mënyrë në të cilën e kaluara na kërkon të kujtojmë me kujdes.</p>
+        </div>
+      </div>
+      <div class="archive-viewer reveal">
+        <aside class="archive-list" aria-label="Materialet e arkivit">
+          <button class="active" data-artifact="vendimi">Vendimi i Komisionit</button>
+          <button data-artifact="komisioni">Komisioni i Alfabetit</button>
+          <button data-artifact="delegatet">Delegatët e Kongresit</button>
+          <button data-artifact="salla">Shtëpia e Kongresit</button>
+          <button data-artifact="alfabeti">Alfabeti i Kongresit</button>
+        </aside>
+        <div class="artifact-stage">
+          <img class="archive-image" id="artifactImage" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Vendim_i_Komisionit_p%C3%ABr_%C3%A7%C3%ABshtjen_e_Abc-%C3%ABs.png/960px-Vendim_i_Komisionit_p%C3%ABr_%C3%A7%C3%ABshtjen_e_Abc-%C3%ABs.png" alt="Reprodhim i vendimit të komisionit për çështjen e alfabetit">
+          <div class="archive-caption" id="archiveCaption">Dokument historik i publikuar në Wikimedia Commons</div>
+          <span class="hotspot a">01</span><span class="hotspot b">02</span>
+        </div>
+        <aside class="archive-meta">
+          <div class="eyebrow">Dokument 01</div><h3 id="artifactMetaTitle">Vendimi i Komisionit</h3>
+          <dl><dt>Datimi</dt><dd id="artifactDate">1908</dd><dt>Vendndodhja</dt><dd id="artifactPlace">Manastir</dd><dt>Lloji</dt><dd id="artifactType">Vendim / dokument i historisë së Kongresit</dd><dt>Burimi</dt><dd id="artifactSource">Wikimedia Commons</dd><dt>Statusi</dt><dd id="artifactStatus">I verifikueshëm në internet, me atribucion</dd></dl>
+          <a class="archive-source" id="artifactLink" href="https://commons.wikimedia.org/wiki/File:Vendim_i_Komisionit_p%C3%ABr_%C3%A7%C3%ABshtjen_e_Abc-%C3%ABs.png" target="_blank" rel="noopener noreferrer">Shiko dokumentin burimor ↗</a>
+        </aside>
+      </div>
+    </section>
+
+    <section class="chapter voice" id="zeri">
+      <div class="section-head reveal">
+        <div><div class="section-index">V · POEZIA DHE ZËRI</div></div>
+        <div>
+          <h2>Zëri i <em>gjuhës</em></h2>
+          <p>Para se të ishte libër, gjuha ishte frymë. Para se të ishte një rresht në letër, ajo ishte dikush që lexonte për dikë tjetër.</p>
+        </div>
+      </div>
+      <div class="voice-stage reveal">
+        <aside class="poem-list">
+          <button class="active" data-poem="1">Naim Frashëri<br><small>Bagëti e Bujqësi</small></button>
+          <button data-poem="2">Gjergj Fishta<br><small>Lahuta e Malcis</small></button>
+          <button data-poem="3">Lasgush Poradeci<br><small>Vallja e yjeve</small></button>
+        </aside>
+        <div class="poem-player">
+          <blockquote id="poemText">S’është vetëm çfarë themi.<br><em>Është çfarë mbetet pas nesh.</em></blockquote>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-quote reveal">
+      <div class="eyebrow">ÇDO HERË QË SHKRUAM</div>
+      <h2>22 Nëntor nuk mbaroi asnjëherë.</h2>
+      <p>Kongresi nuk na la vetëm shkronja. Na la mundësinë të dëgjojmë njëri-tjetrin në të njëjtën formë.</p>
+    </div>
+    <div class="footer-grid">
+      <div><div class="brand"><span class="brand-mark"><span>ABC</span></span><span>Dita e Alfabetit</span></div></div>
+      <div><h4>Ekspozita</h4><a href="#rruga">Historia</a><a href="#kongresi">Kongresi</a><a href="#shkronjat">Shkronjat</a></div>
+      <div><h4>Arkivi</h4><a href="#arkivi">Dokumente</a><a href="#zeri">Poema</a><a href="#rruga">Kronologjia</a></div>
+      <div><h4>Projekt</h4><a href="#">Rreth ekspozitës</a><a href="#">Burimet</a><a href="#">Ekipi</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 Dita e Alfabetit Shqip</span><a href="#hyrje">Kthehu te shkronja e parë ↑</a></div>
+  </footer>
+
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <button class="modal-close" id="modalClose" type="button" aria-label="Mbyll">×</button>
+      <div class="eyebrow">Pjesëmarrës i Kongresit</div>
+      <h2 id="modalTitle" style="font-family:'Cormorant Garamond',serif;font-size:48px;margin:24px 0 12px"></h2>
+      <p id="modalRole" style="color:#75613a;text-transform:uppercase;font-size:10px;letter-spacing:.12em"></p>
+      <p id="modalCopy" style="line-height:1.8;margin-top:28px">Figura dhe roli i saj janë pjesë e historisë së zhvillimit të alfabetit shqiptar. Fotografi dhe atribucionet specifike kërkojnë kontroll të arkivit përpara publikimit përfundimtar.</p>
+    </div>
+  </div>
+
+  <script>
+    const preloader=document.getElementById('preloader');
+    window.addEventListener('load',()=>setTimeout(()=>preloader.classList.add('done'),2100));
+    setTimeout(()=>preloader.classList.add('done'),3800);
+
+    const nav=document.getElementById('nav');
+    const heroBg=document.getElementById('heroBg');
+    addEventListener('scroll',()=>{
+      nav.classList.toggle('scrolled',scrollY>80);
+      if(heroBg) heroBg.style.transform=`translateY(${Math.min(scrollY*.12,80)}px)`;
+    },{passive:true});
+
+    const cursor=document.querySelector('.cursor');
+    addEventListener('pointermove',e=>{
+      cursor.style.left=e.clientX+'px'; cursor.style.top=e.clientY+'px';
+    });
+    document.querySelectorAll('a,button,.letter,.delegate').forEach(el=>{
+      el.addEventListener('mouseenter',()=>cursor.classList.add('dot'));
+      el.addEventListener('mouseleave',()=>cursor.classList.remove('dot'));
+    });
+
+    const observer=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('visible')});
+    },{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+    const timeline=document.getElementById('timeline');
+    const timelineTrack=document.getElementById('timelineTrack');
+    function updateTimeline(){
+      if(innerWidth<981)return;
+      const rect=timeline.getBoundingClientRect();
+      const progress=Math.max(0,Math.min(1,-rect.top/(timeline.offsetHeight+rect.height)));
+      const distance=Math.max(0,timelineTrack.scrollWidth-innerWidth*.76);
+      timelineTrack.style.transform=`translateX(${-progress*distance}px)`;
+    }
+    addEventListener('scroll',updateTimeline,{passive:true});
+
+    const letters=['A','B','C','Ç','D','DH','E','Ë','F','G','Gj','H','I','J','K','L','Ll','M','N','Nj','O','P','Q','R','Rr','S','Sh','T','Th','U','V','X','Xh','Y','Z','Zh'];
+    const words=['atdhe','bota','çelës','çështje','dashuri','dhuratë','era','ëndërr','fjalë','guxim','gjuhë','hënë','ideal','jetë','kalim','lavdi','liri','mendje','njeri','njohuri','ora','përmasë','qeshje','rrugë','rrjetë','shpresë','shtëpi','truall','udhë','vullnet','xixë','yll','zemër','zhurmë'];
+    const explanations=[
+      'A është zanore e hapur dhe shkronja e parë e alfabetit shqip; në “atdhe” hap rrugën e tingullit.',
+      'B është bashkëtingëllore bilabiale; dëgjohet në fillim të “bota” dhe lidhet me tingullin e dy buzëve.',
+      'C shënon tingullin /ts/ në fjalë si “cikël”, një tingull i shkurtër dhe i prerë.',
+      'Ç shënon tingullin /tʃ/; “çelës” tregon dallimin e saj të qartë nga C.',
+      'D është bashkëtingëllore alveolare; në “dashuri” jep një goditje të butë të gjuhës.',
+      'DH është digrafi që shënon një tingull të vetëm, si në “dhuratë”.',
+      'E është zanore e përparme dhe e qartë; në “era” tingulli rrëshqet lehtë.',
+      'Ë është zanore e veçantë e shqipes; në “ëndërr” mban një tingull që nuk shkruhet me E.',
+      'F është tingull fërkues i buzës dhe dhëmbëve; dëgjohet në “fjalë”.',
+      'G është bashkëtingëllore e fortë; në “guxim” nis me një goditje të plotë.',
+      'GJ është digraf për një tingull të njësuar të shqipes, si në “gjuhë”.',
+      'H është tingull frymëmarrës; në “hënë” i jep fjalës një hyrje të lehtë.',
+      'I është zanore e ngushtë dhe e përparme; “ideal” e tregon qartësinë e saj.',
+      'J është gjysmëzanore ose bashkëtingëllore e butë, si në “jetë”.',
+      'K është tingull i mbyllur dhe i fortë; në “kalim” shënon nisjen e fjalës.',
+      'L është anësore e gjuhës; “lavdi” e tregon rrjedhën e saj në gojë.',
+      'LL është digraf dhe tingull i dallueshëm nga L, si në “liri” dhe në forma të tjera të shqipes.',
+      'M është tingull hundor i buzëve; “mendje” e nis me një mbyllje të butë.',
+      'N është tingull hundor alveolar; në “njeri” lidhet me majën e gjuhës.',
+      'NJ është digraf për tingullin hundor të qiellzës, si në “njohuri”.',
+      'O është zanore e rrumbullakët dhe e pasme; “ora” e mban tingullin të hapur.',
+      'P është bashkëtingëllore e mbyllur e buzëve; dëgjohet qartë në “përmasë”.',
+      'Q shënon një tingull të butë qiellzor, si në “qeshje”.',
+      'R është vibrante e gjuhës; në “rrugë” dallon nga Rr përmes gjatësisë dhe forcës.',
+      'RR është vibrante e fortë dhe e dyfishtë; “rrjetë” e bën dallimin të dëgjueshëm.',
+      'S është fërkuese e pastër; “shpresë” tregon fishkëllimën e saj të hollë.',
+      'SH është digraf për një tingull të vetëm fërkues, si në “shtëpi”.',
+      'T është bashkëtingëllore e prerë e majës së gjuhës; në “truall” shënon një ndalesë.',
+      'TH është digraf që ruan tingullin e veçantë të “th”; ai shfaqet në fjalë të trashëguara dhe të përdorura gjerësisht.',
+      'U është zanore e pasme dhe e rrumbullakët; në “udhë” tingulli nis i thellë.',
+      'V është fërkuese e zëshme e buzës dhe dhëmbëve; në “vullnet” tingëllon e qëndrueshme.',
+      'X është bashkëtingëllore e zëshme, si në “xixë”.',
+      'XH është digraf për tingullin /dʒ/; “xixë” dhe fjalët e ngjashme e bëjnë të dallueshëm.',
+      'Y është zanore e përparme e rrumbullakët; “yll” ka një tingull karakteristik të shqipes.',
+      'Z është fërkuese e zëshme; “zemër” e hap fjalën me një tingull të gjallë.',
+      'ZH është digraf për një tingull të zëshëm fërkues, si në “zhurmë”.'
+    ];
+    const grid=document.getElementById('letterGrid');
+    const detail=document.getElementById('letterDetail');
+    const search=document.getElementById('letterSearch');
+    function showLetter(letter,index,button){
+      document.querySelectorAll('.letter').forEach(l=>l.classList.remove('active'));
+      if(button)button.classList.add('active');
+      document.getElementById('detailCharacter').textContent=letter;
+      document.getElementById('detailName').textContent=letter;
+      document.getElementById('detailWord').textContent=words[index]||letter.toLowerCase();
+      document.getElementById('detailDesc').textContent=explanations[index];
+      detail.classList.add('open');
+      detail.scrollIntoView({behavior:'smooth',block:'center'});
+    }
+    letters.forEach((letter,i)=>{
+      const button=document.createElement('button');
+      button.className='letter';button.type='button';button.innerHTML=`<b>${letter}</b><small>${String(i+1).padStart(2,'0')}</small>`;
+      button.addEventListener('click',()=>showLetter(letter,i,button));
+      grid.appendChild(button);
+    });
+    search.addEventListener('input',()=>{
+      const q=search.value.toLowerCase();
+      [...grid.children].forEach((button,i)=>{
+        button.hidden=!letters[i].toLowerCase().includes(q)&&!words[i].includes(q);
+      });
+    });
+
+    const modal=document.getElementById('modal');
+    const modalTitle=document.getElementById('modalTitle');
+    const modalRole=document.getElementById('modalRole');
+    document.querySelectorAll('.delegate').forEach(card=>{
+      card.addEventListener('click',()=>{
+        modalTitle.textContent=card.dataset.name;modalRole.textContent=card.dataset.role;
+        modal.classList.add('open');document.body.classList.add('locked');
+      });
+    });
+    function closeModal(){modal.classList.remove('open');document.body.classList.remove('locked')}
+    document.getElementById('modalClose').addEventListener('click',closeModal);
+    modal.addEventListener('click',e=>{if(e.target===modal)closeModal()});
+    addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+
+    const artifacts={
+      vendimi:{
+        title:'Vendimi i Komisionit',
+        date:'1908',
+        place:'Manastir',
+        type:'Vendim i Komisionit për çështjen e alfabetit',
+        source:'Wikimedia Commons',
+        status:'Dokument historik i cituar nga burime të shumta',
+        image:'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Vendim_i_Komisionit_p%C3%ABr_%C3%A7%C3%ABshtjen_e_Abc-%C3%ABs.png/960px-Vendim_i_Komisionit_p%C3%ABr_%C3%A7%C3%ABshtjen_e_Abc-%C3%ABs.png',
+        alt:'Vendimi i Komisionit për çështjen e alfabetit',
+        link:'https://commons.wikimedia.org/wiki/File:Vendim_i_Komisionit_p%C3%ABr_%C3%A7%C3%ABshtjen_e_Abc-%C3%ABs.png',
+        caption:'Vendim i dokumentuar i Komisionit; mos e ngatërroni me një transkript modern'
+      },
+      komisioni:{
+        title:'Komisioni i Alfabetit',
+        date:'14–22 Nëntor 1908',
+        place:'Manastir',
+        type:'Fotografi historike e komisionit',
+        source:'Fotografi nga Kel Marubi',
+        status:'Fotografi historike me atribucion të burimit',
+        image:'https://upload.wikimedia.org/wikipedia/commons/c/cc/Komisioni_i_Alfabetit_Monastir_1908.jpg',
+        alt:'Komisioni i alfabetit në Kongresin e Manastirit',
+        link:'https://commons.wikimedia.org/wiki/File:Komisioni_i_Alfabetit_Monastir_1908.jpg',
+        caption:'Komisioni u zgjodh nga delegatët dhe kishte 11 anëtarë'
+      },
+      delegatet:{
+        title:'Delegatët e Kongresit',
+        date:'14–22 Nëntor 1908',
+        place:'Manastir',
+        type:'Fotografi e mbledhur e pjesëmarrësve',
+        source:'Mikel Kodheli / Wikimedia Commons',
+        status:'Identifikimi i figurave kërkon kontroll sipas burimit',
+        image:'https://upload.wikimedia.org/wikipedia/commons/7/78/Delegat%C3%ABt_e_Kongresit_t%C3%AB_Manastirit.jpg',
+        alt:'Delegatët e Kongresit të Manastirit',
+        link:'https://commons.wikimedia.org/wiki/File:Delegat%C3%ABt_e_Kongresit_t%C3%AB_Manastirit.jpg',
+        caption:'Kongresi kishte rreth 50 delegatë nga 23 qytete, shoqëri dhe komunitete'
+      },
+      salla:{
+        title:'Shtëpia e Fehim Zavalani',
+        date:'Kongresi: 14–22 Nëntor 1908',
+        place:'Manastir / Bitola',
+        type:'Fotografi e objektit të Kongresit',
+        source:'Wikimedia Commons',
+        status:'Objekti përdoret sot si Muzeu i Alfabetit Shqip',
+        image:'https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Objekti_i_Kongresit_t%C3%AB_Manastirit.jpg/960px-Objekti_i_Kongresit_t%C3%AB_Manastirit.jpg',
+        alt:'Shtëpia ku u mbajt Kongresi i Manastirit',
+        link:'https://commons.wikimedia.org/wiki/File:Objekti_i_Kongresit_t%C3%AB_Manastirit.jpg',
+        caption:'Shtëpia e Fehim Zavalani dhe selia e shoqërisë “Bashkimi”'
+      },
+      alfabeti:{
+        title:'Alfabeti i Kongresit',
+        date:'22 Nëntor 1908',
+        place:'Manastir',
+        type:'Kartë / përmbledhje grafike e alfabetit',
+        source:'Wikimedia Commons',
+        status:'Material historik; krahasimi kërkon burim origjinal',
+        image:'https://upload.wikimedia.org/wikipedia/commons/0/0a/Albanian_Alphabet_from_Manastir_Congress.jpg',
+        alt:'Alfabeti shqiptar i Kongresit të Manastirit',
+        link:'https://commons.wikimedia.org/wiki/File:Albanian_Alphabet_from_Manastir_Congress.jpg',
+        caption:'Alfabeti i Bashkimit u përdor si bazë; Kongresi pranoi një kompromis me sistemin e Stambollit'
+      }
+    };
+    document.querySelectorAll('.archive-list button').forEach(button=>{
+      button.addEventListener('click',()=>{
+        document.querySelectorAll('.archive-list button').forEach(b=>b.classList.remove('active'));
+        button.classList.add('active');
+        const item=artifacts[button.dataset.artifact];
+        document.getElementById('artifactMetaTitle').textContent=item.title;
+        document.getElementById('artifactDate').textContent=item.date;
+        document.getElementById('artifactPlace').textContent=item.place;
+        document.getElementById('artifactType').textContent=item.type;
+        document.getElementById('artifactSource').textContent=item.source;
+        document.getElementById('artifactStatus').textContent=item.status;
+        document.getElementById('artifactLink').href=item.link;
+        const image=document.getElementById('artifactImage');
+        image.src=item.image;
+        image.alt=item.alt;
+        document.getElementById('archiveCaption').textContent=item.caption;
+      });
+    });
+
+    const poems=[
+      'S’është vetëm çfarë themi.<br><em>Është çfarë mbetet pas nesh.</em>',
+      'Malet mbajnë kujtim.<br><em>Fjalët e tyre ecin në jetë.</em>',
+      'Yjet shkrijnë heshtjen.<br><em>Gjuhës i lind një vallëzim.</em>'
+    ];
+    document.querySelectorAll('.poem-list button').forEach((button,i)=>{
+      button.addEventListener('click',()=>{
+        document.querySelectorAll('.poem-list button').forEach(b=>b.classList.remove('active'));
+        button.classList.add('active');
+        document.getElementById('poemText').innerHTML=poems[i];
+      });
+    });
+  </script>
+</body>
+</html>
